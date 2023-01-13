@@ -1,4 +1,9 @@
-# Getting Started with Create React App
+User story: I can see a list of properties
+User story: I can see the property card with a name, rating, apartment type, and super host
+User story: I can open the filter drawer
+User story: I can filter properties by location and number of guests
+User story: I can see the number of filtered items
+User story: I can see pages following given designs# Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
