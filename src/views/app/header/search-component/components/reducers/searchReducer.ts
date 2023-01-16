@@ -1,6 +1,9 @@
 interface InitialState {
   countryName: string
   guestCount: number
+  adultCount: number | null
+  childrenCount: number | null
+  calcVisible: boolean
 }
 
 export const searchReducer = (state: InitialState, action: any) => {
@@ -16,6 +19,11 @@ export const searchReducer = (state: InitialState, action: any) => {
         guestCount: action.payload,
       }
 
+    case 'calcVisible':
+      return {
+        ...state,
+        calcVisible: true,
+      }
     default:
       return state
   }
