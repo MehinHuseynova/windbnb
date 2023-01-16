@@ -9,16 +9,18 @@ export const ExpandaedSearch = React.memo(() => {
   const initialState = {
     countryName: '',
     guestCount: null,
-    adultCount: null,
-    childrenCount: null,
+    adultCount: 0,
+    childrenCount: 0,
     calcVisible: false,
   }
   const [state, dispatch] = useReducer(searchReducer, initialState)
+
   const handleGuestCalcVisibility = () => {
     dispatch({ type: 'calcVisible' })
   }
+
   return (
-    <Container>
+    <Container className={classes.container}>
       <Box className={classes.root}>
         <TextField
           variant="filled"
@@ -36,8 +38,9 @@ export const ExpandaedSearch = React.memo(() => {
             dispatch({ type: 'setName', payload: e.target.value })
           }
         />
-        <Box>
-          <Box alignSelf="flex-start">
+
+        <Box className={classes.calcContainer}>
+          <Box alignSelf="flex-start" display="flex">
             <TextField
               variant="filled"
               label="Guests"
@@ -49,9 +52,12 @@ export const ExpandaedSearch = React.memo(() => {
                 shrink: true,
                 size: 'small',
               }}
-              
               name="guestCount"
-              value={state.guestCount}
+              value={
+                state.adultCount + state.childrenCount > 0
+                  ? state.adultCount + state.childrenCount
+                  : ''
+              }
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 dispatch({ type: 'setName', payload: e.target.value })
               }
@@ -64,11 +70,22 @@ export const ExpandaedSearch = React.memo(() => {
                 <Typography variant="body2" color="#BDBDBD">
                   Ages 13 or above
                 </Typography>
-                <Button variant="text" className={classes.guestCount}>
+                <Button
+                  variant="text"
+                  className={classes.guestCount}
+                  onClick={() => dispatch({ type: 'incrementAdult' })}
+                >
                   +
                 </Button>
-                {state.adultCount}{' '}
-                <Button variant="text" className={classes.guestCount}>
+                <Typography display="inline-block" p="5px">
+                  {state.adultCount}
+                </Typography>
+                <Button
+                  variant="text"
+                  disabled={state.adultCount === 0}
+                  className={classes.guestCount}
+                  onClick={() => dispatch({ type: 'decrementAdult' })}
+                >
                   -
                 </Button>
               </Box>
@@ -77,11 +94,22 @@ export const ExpandaedSearch = React.memo(() => {
                 <Typography variant="body2" color="#BDBDBD">
                   2-12
                 </Typography>
-                <Button variant="text" className={classes.guestCount}>
+                <Button
+                  variant="text"
+                  className={classes.guestCount}
+                  onClick={() => dispatch({ type: 'incrementChildren' })}
+                >
                   +
                 </Button>
-                {state.childrenCount}{' '}
-                <Button variant="text" className={classes.guestCount}>
+                <Typography display="inline-block" p="5px">
+                  {state.childrenCount}{' '}
+                </Typography>
+                <Button
+                  variant="text"
+                  disabled={state.childrenCount === 0}
+                  className={classes.guestCount}
+                  onClick={() => dispatch({ type: 'decrementChildren' })}
+                >
                   -
                 </Button>
               </Box>

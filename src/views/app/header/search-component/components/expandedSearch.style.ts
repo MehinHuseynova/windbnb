@@ -3,6 +3,9 @@ import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()((theme) => {
   return {
+    container: {
+      display: 'flex',
+    },
     root: {
       width: '100%',
       display: 'flex',
@@ -56,6 +59,7 @@ export const useStyles = makeStyles()((theme) => {
         },
       },
     },
+    calcContainer: {},
     searchBtn: {
       background: '#EB5757E5',
       borderRadius: '16px',
@@ -64,6 +68,7 @@ export const useStyles = makeStyles()((theme) => {
       fontSize: '14px',
       textTransform: 'capitalize',
     },
+
     guestCalculator: {
       padding: '8px 0 8px 12px',
     },
