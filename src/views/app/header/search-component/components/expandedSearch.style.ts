@@ -9,11 +9,17 @@ export const useStyles = makeStyles()((theme) => {
     root: {
       width: '100%',
       display: 'flex',
+      color: '#333333',
       padding: theme.spacing(1),
       alignItems: 'flex-start',
       justifyContent: 'space-around',
       boxShadow: '0px 1px 6px 0px #0000001A',
       borderRadius: '16px',
+      [theme.breakpoints.down('md')]: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
       '& p': {
         fontSize: '14px',
       },
@@ -27,6 +33,7 @@ export const useStyles = makeStyles()((theme) => {
         color: '#333333',
       },
       '& .MuiFormControl-root': {
+        flex: 1,
         '& :focus': {
           border: '1px solid #333333',
           borderRadius: '16px',
@@ -59,7 +66,9 @@ export const useStyles = makeStyles()((theme) => {
         },
       },
     },
-    calcContainer: {},
+    calcContainer: {
+      flex: 1,
+    },
     searchBtn: {
       background: '#EB5757E5',
       borderRadius: '16px',
@@ -67,8 +76,11 @@ export const useStyles = makeStyles()((theme) => {
       color: 'white',
       fontSize: '14px',
       textTransform: 'capitalize',
+      margin: theme.spacing(1, 1),
     },
-
+    guestCalcContainer: {
+      marginTop: theme.spacing(2),
+    },
     guestCalculator: {
       padding: '8px 0 8px 12px',
     },
