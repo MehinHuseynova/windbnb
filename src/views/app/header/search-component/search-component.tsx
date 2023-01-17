@@ -1,5 +1,11 @@
 import React from 'react'
-import { Box, Button, Icon, ButtonGroup } from '@mui/material'
+import {
+  Box,
+  Button,
+  Icon,
+  ButtonGroup,
+  ClickAwayListener,
+} from '@mui/material'
 import { useStyles } from './search-component.style'
 import SearchIcon from '@mui/icons-material/Search'
 import { Typography } from '@mui/material'

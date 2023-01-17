@@ -1,9 +1,11 @@
 import React, { useState, useCallback } from 'react'
-import { Container, Box, Slide } from '@mui/material'
+import { Container, Box, Slide, ClickAwayListener } from '@mui/material'
 import Logo from 'assets/logo.svg'
 import { useStyles } from './header.style'
 import { SearchComponent } from './search-component/search-component'
 import { ExpandaedSearch } from './search-component/components/expandedSearch'
+import Fade from '@mui/material/Fade'
+import Collapse from '@mui/material/Collapse'
 
 export const Header = () => {
   const { classes } = useStyles()
@@ -11,25 +13,38 @@ export const Header = () => {
 
   const handleSearchPanel = useCallback(() => {
     setOpen(true)
-  },[])
+  }, [])
 
+  const handleClickAway = () => {
+    setOpen(false)
+  }
   return (
     <>
-      <Slide
-        direction="down"
+      <Collapse
         in={open}
         mountOnEnter
         unmountOnExit
         timeout={{
-          appear: 500,
-          enter: 800,
+          appear: 800,
+          enter: 1000,
+          exit: 500,
         }}
       >
         <Box className={classes.searchPanelContainer}>
-          <ExpandaedSearch />
+          <ExpandaedSearch handleSearchPanel={handleClickAway} />
         </Box>
-      </Slide>
-      {!open ? (
+      </Collapse>
+
+      <Collapse
+        in={!open}
+        mountOnEnter
+        unmountOnExit
+        timeout={{
+          appear: 800,
+          enter: 300,
+          exit: 500,
+        }}
+      >
         <Container className={classes.root}>
           <Box className={classes.container}>
             <Box className={classes.logoContainer}>
@@ -43,7 +58,7 @@ export const Header = () => {
             </Box>
           </Box>
         </Container>
-      ) : null}
+      </Collapse>
     </>
   )
 }
