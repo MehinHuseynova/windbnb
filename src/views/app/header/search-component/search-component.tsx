@@ -1,26 +1,18 @@
-import React from 'react'
-import {
-  Box,
-  Button,
-  Icon,
-  ButtonGroup,
-  ClickAwayListener,
-} from '@mui/material'
-import { useStyles } from './search-component.style'
 import SearchIcon from '@mui/icons-material/Search'
-import { Typography } from '@mui/material'
+import { Box, Button, ButtonGroup, Typography } from '@mui/material'
+import { ExpandableSearchContext } from 'contexts/ExpandleSearchContext'
+import React, { useContext } from 'react'
+import { useStyles } from './search-component.style'
 
 interface SearchComponentProps {
-  searchValue: string
   handleSearchPanel: () => void
 }
 
 export const SearchComponent: React.FC<SearchComponentProps> = ({
-  searchValue,
   handleSearchPanel,
 }) => {
   const { classes } = useStyles()
-
+  const { state } = useContext(ExpandableSearchContext)
   return (
     <Box>
       <ButtonGroup
@@ -30,8 +22,13 @@ export const SearchComponent: React.FC<SearchComponentProps> = ({
         onClick={handleSearchPanel}
       >
         <Button disableRipple>
-          <Typography color="#333333" fontSize={14} textTransform="capitalize">
-            {searchValue}
+          <Typography
+            color={state.countryName ? '#333333' : '#BDBDBD'}
+            fontSize={14}
+            textTransform="capitalize"
+            placeholder="Add Location"
+          >
+            {state.countryName ?? 'Add Location'}
           </Typography>
         </Button>
         <Button disableRipple>
