@@ -1,4 +1,3 @@
-import { padding } from '@mui/system'
 import { makeStyles } from 'tss-react/mui'
 
 export const useStyles = makeStyles()((theme) => {
@@ -15,7 +14,7 @@ export const useStyles = makeStyles()((theme) => {
       justifyContent: 'space-around',
       boxShadow: '0px 1px 6px 0px #0000001A',
       borderRadius: '16px',
-      [theme.breakpoints.down('md')]: {
+      [theme.breakpoints.down('sm')]: {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
@@ -89,6 +88,15 @@ export const useStyles = makeStyles()((theme) => {
       display: 'inline-block',
       padding: 0,
       minWidth: '20px',
+    },
+    listItem: {
+      fontSize: '14px',
+      display: 'flex',
+      alignItems: 'center',
+
+      '& svg': {
+        marginBottom: '3px',
+      },
     },
   }
 })

@@ -1,9 +1,21 @@
-interface InitialState {
+export interface ResultType {
+  city: string
+  country: string
+  superHost: boolean
+  title: string
+  rating: number
+  maxGuests: number
+  type: string
+  beds: number | null
+  photo: string
+}
+export interface InitialState {
   countryName: string
   guestCount: number
   adultCount: number
   childrenCount: number
   calcVisible: boolean
+  filteredResult: Array<ResultType>
 }
 
 export const searchReducer = (state: InitialState, action: any) => {
@@ -45,6 +57,12 @@ export const searchReducer = (state: InitialState, action: any) => {
       return {
         ...state,
         childrenCount: state.childrenCount - 1,
+      }
+   
+    case 'setFilteredResult':
+      return {
+        ...state,
+        filteredResult: action.payload,
       }
     default:
       return state

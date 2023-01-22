@@ -1,11 +1,10 @@
-import React, { useState, useCallback } from 'react'
-import { Container, Box, Slide, ClickAwayListener } from '@mui/material'
-import Logo from 'assets/logo.svg'
-import { useStyles } from './header.style'
-import { SearchComponent } from './search-component/search-component'
-import { ExpandaedSearch } from './search-component/components/expandedSearch'
-import Fade from '@mui/material/Fade'
+import { Box, Container } from '@mui/material'
 import Collapse from '@mui/material/Collapse'
+import Logo from 'assets/logo.svg'
+import { useCallback, useState } from 'react'
+import { useStyles } from './header.style'
+import { ExpandaedSearch } from './search-component/components/expandedSearch'
+import { SearchComponent } from './search-component/search-component'
 
 export const Header = () => {
   const { classes } = useStyles()
@@ -31,7 +30,7 @@ export const Header = () => {
         }}
       >
         <Box className={classes.searchPanelContainer}>
-          <ExpandaedSearch handleSearchPanel={handleClickAway} />
+          <ExpandaedSearch {...{ handleSearchPanel, handleClickAway }} />
         </Box>
       </Collapse>
 
@@ -51,10 +50,7 @@ export const Header = () => {
               <img src={Logo} alt="logo" />
             </Box>
             <Box>
-              <SearchComponent
-                searchValue="Helsinki, Finland"
-                handleSearchPanel={handleSearchPanel}
-              />
+              <SearchComponent handleSearchPanel={handleSearchPanel} />
             </Box>
           </Box>
         </Container>
