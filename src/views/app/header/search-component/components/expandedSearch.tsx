@@ -59,16 +59,25 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
       },
       [dispatch, filteredData],
     )
-    
+
     const handleSearchValue = useMemo(
       () => debounce(filterSearchResult, 1000),
       [filterSearchResult],
     )
 
     const handleSubmitSearchResult = useCallback(() => {
-      const searchResult = filteredData.filter(
-        (data) => state.guestCount <= data.maxGuests,
-      )
+      const searchResult = filteredData.filter((data) => {
+        if (state.guestCount <= data.maxGuests) {
+          if (
+            state.countryName &&
+            `${data.city}, ${data.country} === ${state.countryName}`
+          ) {
+            return data
+          }
+          return data
+        }
+      })
+
       dispatch({ type: 'setFilteredResult', payload: searchResult })
       handleSearchPanel()
     }, [filteredData, state.guestCount])
@@ -103,20 +112,40 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
                   handleSearchValue(e)
                 }}
               />
-              <Box>
-                <List>
-                  {filteredData.map((result) => {
-                    return (
-                      <ListItem className={classes.listItem} key={result.title}>
-                        <Icon>
-                          <LocationOnIcon fontSize="small" />
-                        </Icon>
-                        {`${result.city}, ${result.country}`}
-                      </ListItem>
-                    )
-                  })}
-                </List>
-              </Box>
+
+              <Collapse
+                in={Boolean(filteredData.length)}
+                mountOnEnter
+                unmountOnExit
+                timeout={{
+                  enter: 500,
+                  appear: 300,
+                }}
+              >
+                <Box>
+                  <List className={classes.listContainer}>
+                    {filteredData.map((result) => {
+                      return (
+                        <ListItem
+                          className={classes.listItem}
+                          key={result.title}
+                          onClick={() =>
+                            dispatch({
+                              type: 'setName',
+                              payload: `${result.city}, ${result.country}`,
+                            })
+                          }
+                        >
+                          <Icon>
+                            <LocationOnIcon fontSize="small" />
+                          </Icon>
+                          <Typography>{`${result.city}, ${result.country}`}</Typography>
+                        </ListItem>
+                      )
+                    })}
+                  </List>
+                </Box>
+              </Collapse>
             </Box>
             <Box className={classes.calcContainer}>
               <Box alignSelf="flex-start" display="flex">
