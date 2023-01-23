@@ -28,7 +28,7 @@ export const SearchComponent: React.FC<SearchComponentProps> = ({
             textTransform="capitalize"
             placeholder="Add Location"
           >
-            {state.countryName ?? 'Add Location'}
+            {state.countryName || 'Add Location'}
           </Typography>
         </Button>
         <Button disableRipple>

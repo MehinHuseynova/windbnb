@@ -10,9 +10,9 @@ export const Header = () => {
   const { classes } = useStyles()
   const [open, setOpen] = useState<boolean>(false)
 
-  const handleSearchPanel = useCallback(() => {
-    setOpen(true)
-  }, [])
+  const handleSearchPanel = () => {
+    setOpen(!open)
+  }
 
   const handleClickAway = () => {
     setOpen(false)

@@ -25,7 +25,6 @@ export const useStyles = makeStyles()((theme) => {
 
     searchPanelContainer: {
       marginTop: theme.spacing(2),
-      minHeight: '200px',
     },
   }
 })

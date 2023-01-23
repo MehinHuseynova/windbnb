@@ -89,10 +89,20 @@ export const useStyles = makeStyles()((theme) => {
       padding: 0,
       minWidth: '20px',
     },
+    listContainer: {
+      overflowY: 'auto',
+      maxHeight: '196px',
+      '&::-webkit-scrollbar': { width: 0, height: 0 },
+    },
     listItem: {
       fontSize: '14px',
       display: 'flex',
       alignItems: 'center',
+      '&:hover': {
+        background: '#EEEEEE',
+        borderRadius: '6px',
+      },
+      cursor: 'pointer',
 
       '& svg': {
         marginBottom: '3px',
