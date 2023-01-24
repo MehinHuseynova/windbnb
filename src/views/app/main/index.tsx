@@ -1,19 +1,23 @@
-import { Grid, Box, Typography } from '@mui/material'
+import { Grid, Box, Typography, Container } from '@mui/material'
 import { ExpandableSearchContext } from 'contexts/ExpandleSearchContext'
 import React, { useContext } from 'react'
 import { CardItem } from './card'
 import data from 'stays.json'
 import { ResultType } from '../header/search-component/components/reducers/searchReducer'
+import classNames from 'classnames'
 
 export const Main = () => {
   const { state } = useContext(ExpandableSearchContext)
   const countryName = state.countryName.split(',')[1]
   const dataToRender =
-    (state.filteredResult.length && state.filteredResult) || JSON.parse(JSON.stringify(data))
+    (state.filteredResult.length && state.filteredResult) ||
+    JSON.parse(JSON.stringify(data))
   return (
-    <>
+    <Container>
       {state.filteredResult.length && countryName ? (
-        <Typography>Stays in {countryName}</Typography>
+        <Typography fontWeight={700} fontSize={24}>
+          Stays in {countryName}
+        </Typography>
       ) : null}
       <Grid container>
         {dataToRender.map((filterResult: ResultType) => (
@@ -25,6 +29,6 @@ export const Main = () => {
           </Grid>
         ))}
       </Grid>
-    </>
+    </Container>
   )
 }

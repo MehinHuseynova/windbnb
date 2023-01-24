@@ -19,31 +19,13 @@ export const Header = () => {
   }
   return (
     <>
-      <Collapse
-        in={open}
-        mountOnEnter
-        unmountOnExit
-        timeout={{
-          appear: 800,
-          enter: 1000,
-          exit: 500,
-        }}
-      >
+      <Collapse in={open} mountOnEnter unmountOnExit>
         <Box className={classes.searchPanelContainer}>
           <ExpandaedSearch {...{ handleSearchPanel, handleClickAway }} />
         </Box>
       </Collapse>
 
-      <Collapse
-        in={!open}
-        mountOnEnter
-        unmountOnExit
-        timeout={{
-          appear: 800,
-          enter: 300,
-          exit: 500,
-        }}
-      >
+      <Collapse in={!open} mountOnEnter unmountOnExit>
         <Container className={classes.root}>
           <Box className={classes.container}>
             <Box className={classes.logoContainer}>

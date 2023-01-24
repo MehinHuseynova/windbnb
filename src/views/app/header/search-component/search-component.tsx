@@ -12,7 +12,10 @@ export const SearchComponent: React.FC<SearchComponentProps> = ({
   handleSearchPanel,
 }) => {
   const { classes } = useStyles()
-  const { state } = useContext(ExpandableSearchContext)
+  const {
+    state: { isFilterActive = false, countryName = '', guestCount = 0 } = {},
+  } = useContext(ExpandableSearchContext)
+
   return (
     <Box>
       <ButtonGroup
@@ -23,17 +26,21 @@ export const SearchComponent: React.FC<SearchComponentProps> = ({
       >
         <Button disableRipple>
           <Typography
-            color={state.countryName ? '#333333' : '#BDBDBD'}
+            color={isFilterActive && countryName ? '#333333' : '#BDBDBD'}
             fontSize={14}
             textTransform="capitalize"
             placeholder="Add Location"
           >
-            {state.countryName || 'Add Location'}
+            {(isFilterActive && countryName) || 'Add Location'}
           </Typography>
         </Button>
         <Button disableRipple>
-          <Typography color="#BDBDBD" fontSize={14} textTransform="capitalize">
-            Add Guests
+          <Typography
+            color={isFilterActive && guestCount ? '#333333' : '#BDBDBD'}
+            fontSize={14}
+            textTransform="capitalize"
+          >
+            {(isFilterActive && guestCount) || 'Add Guest'}
           </Typography>
         </Button>
         <Button disableRipple>

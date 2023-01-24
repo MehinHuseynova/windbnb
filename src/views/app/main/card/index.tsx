@@ -24,7 +24,7 @@ export const CardItem: React.FC<CardItemProps> = ({
       <CardContent>
         <Box display="flex" justifyContent="space-between" py={1}>
           <Typography color="#828282" fontSize={14} fontWeight={500}>
-            {type === ''}
+            {type}
           </Typography>{' '}
           <Box
             display="flex"

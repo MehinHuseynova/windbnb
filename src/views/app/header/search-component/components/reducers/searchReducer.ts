@@ -16,6 +16,7 @@ export interface InitialState {
   childrenCount: number
   calcVisible: boolean
   filteredResult: Array<ResultType>
+  isFilterActive: boolean
 }
 
 export const searchReducer = (state: InitialState, action: any) => {
@@ -34,7 +35,12 @@ export const searchReducer = (state: InitialState, action: any) => {
     case 'calcVisible':
       return {
         ...state,
-        calcVisible: true,
+        calcVisible: !state.calcVisible,
+      }
+    case 'isFilterActive':
+      return {
+        ...state,
+        isFilterActive: true,
       }
     case 'incrementAdult':
       return {
@@ -58,7 +64,7 @@ export const searchReducer = (state: InitialState, action: any) => {
         ...state,
         childrenCount: state.childrenCount - 1,
       }
-   
+
     case 'setFilteredResult':
       return {
         ...state,
