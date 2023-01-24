@@ -3,10 +3,14 @@ import { makeStyles } from 'tss-react/mui'
 export const useStyles = makeStyles()((theme) => {
   return {
     root: {
-      borderRadius: theme.spacing(3),
       '& .MuiCardMedia-root': {
         minWidth: '350px',
         objectFit: 'cover',
+      },
+      boxShadow: 'unset',
+      cursor: 'pointer',
+      '& img': {
+        borderRadius: theme.spacing(3),
       },
     },
     ratingStar: {

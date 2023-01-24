@@ -67,9 +67,12 @@ export const useStyles = makeStyles()((theme) => {
     },
     calcContainer: {
       flex: 1,
+      '& input': {
+        cursor: 'pointer',
+      },
     },
     searchBtn: {
-      background: '#EB5757E5',
+      background: '#EB5757E5 !important',
       borderRadius: '16px',
       padding: '4px 12px',
       color: 'white',
@@ -81,7 +84,7 @@ export const useStyles = makeStyles()((theme) => {
       marginTop: theme.spacing(2),
     },
     guestCalculator: {
-      padding: '8px 0 8px 12px',
+      padding: '0px 0 8px 12px',
     },
     guestCount: {
       border: '1px solid #828282',
@@ -91,7 +94,7 @@ export const useStyles = makeStyles()((theme) => {
     },
     listContainer: {
       overflowY: 'auto',
-      maxHeight: '196px',
+      minHeight: '160px',
       '&::-webkit-scrollbar': { width: 0, height: 0 },
     },
     listItem: {

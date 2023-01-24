@@ -16,6 +16,7 @@ export const ExpandableSearchContext = React.createContext<SearchContent>({
     calcVisible: false,
     guestCount: 0,
     filteredResult: [],
+    isFilterActive:false,
   },
   dispatch: () => {},
 })
@@ -28,6 +29,7 @@ const ExpandableSearchProvider: React.FC<any> = ({ children }) => {
     childrenCount: 0,
     calcVisible: false,
     filteredResult: [],
+    isFilterActive:false,
   }
   const [state, dispatch] = useReducer(searchReducer, initialState)
 

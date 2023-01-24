@@ -60,10 +60,9 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
       [dispatch, filteredData],
     )
 
-    const handleSearchValue = useMemo(
-      () => debounce(filterSearchResult, 1000),
-      [filterSearchResult],
-    )
+    const handleSearchValue = useMemo(() => debounce(filterSearchResult, 500), [
+      filterSearchResult,
+    ])
 
     const handleSubmitSearchResult = useCallback(() => {
       const searchResult = filteredData.filter((data) => {
@@ -79,6 +78,7 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
       })
 
       dispatch({ type: 'setFilteredResult', payload: searchResult })
+      dispatch({ type: 'isFilterActive' })
       handleSearchPanel()
     }, [filteredData, state.guestCount])
 
@@ -112,7 +112,6 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
                   handleSearchValue(e)
                 }}
               />
-
               <Collapse
                 in={Boolean(filteredData.length)}
                 mountOnEnter
@@ -160,6 +159,8 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
                     shrink: true,
                     size: 'small',
                   }}
+
+                  inputProps={{ readOnly: true, }}
                   name="guestCount"
                   value={
                     state.adultCount + state.childrenCount > 0
@@ -182,21 +183,21 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
                     </Typography>
                     <Button
                       variant="text"
+                      disabled={state.adultCount === 0}
                       className={classes.guestCount}
-                      onClick={() => dispatch({ type: 'incrementAdult' })}
+                      onClick={() => dispatch({ type: 'decrementAdult' })}
                     >
-                      +
+                      -
                     </Button>
                     <Typography display="inline-block" p="5px" mx="5px">
                       {state.adultCount}
                     </Typography>
                     <Button
                       variant="text"
-                      disabled={state.adultCount === 0}
                       className={classes.guestCount}
-                      onClick={() => dispatch({ type: 'decrementAdult' })}
+                      onClick={() => dispatch({ type: 'incrementAdult' })}
                     >
-                      -
+                      +
                     </Button>
                   </Box>
                   <Box className={classes.guestCalculator}>
@@ -208,21 +209,21 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
                     </Typography>
                     <Button
                       variant="text"
+                      disabled={state.childrenCount === 0}
                       className={classes.guestCount}
-                      onClick={() => dispatch({ type: 'incrementChildren' })}
+                      onClick={() => dispatch({ type: 'decrementChildren' })}
                     >
-                      +
+                      -
                     </Button>
                     <Typography display="inline-block" p="5px" mx="5px">
                       {state.childrenCount}{' '}
                     </Typography>
                     <Button
                       variant="text"
-                      disabled={state.childrenCount === 0}
                       className={classes.guestCount}
-                      onClick={() => dispatch({ type: 'decrementChildren' })}
+                      onClick={() => dispatch({ type: 'incrementChildren' })}
                     >
-                      -
+                      +
                     </Button>
                   </Box>
                 </Box>
