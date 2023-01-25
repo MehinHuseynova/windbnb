@@ -1,29 +1,23 @@
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import SearchIcon from '@mui/icons-material/Search'
 import {
   Box,
-  Container,
   Button,
-  TextField,
-  Typography,
   ClickAwayListener,
   Collapse,
+  Container,
+  Icon,
   List,
   ListItem,
-  Icon,
+  TextField,
+  Typography,
 } from '@mui/material'
-import React, {
-  useContext,
-  useMemo,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
+import { ExpandableSearchContext } from 'contexts/ExpandleSearchContext'
+import { useFilterSearch } from 'hooks/useFilterSearch'
+import React, { useCallback, useContext, useEffect } from 'react'
+import data from 'stays.json'
 import { useStyles } from './expandedSearch.style'
 import { ResultType } from './reducers/searchReducer'
-import SearchIcon from '@mui/icons-material/Search'
-import { ExpandableSearchContext } from 'contexts/ExpandleSearchContext'
-import { debounce } from 'lodash'
-import data from 'stays.json'
-import LocationOnIcon from '@mui/icons-material/LocationOn'
 
 interface ExpandedSearchProps {
   handleSearchPanel: () => void
@@ -34,54 +28,14 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
   ({ handleSearchPanel, handleClickAway }: any) => {
     const { classes } = useStyles()
     const { state, dispatch } = useContext(ExpandableSearchContext)
-    const [filteredData, setFilteredData] = useState<ResultType[]>([])
+    const [filterFN, filterSubmitFn, filteredData] = useFilterSearch(
+      data,
+      handleSearchPanel,
+    )
 
     const handleGuestCalcVisibility = () => {
       dispatch({ type: 'calcVisible' })
     }
-
-    const filterSearchResult = useCallback(
-      (e: React.ChangeEvent<HTMLInputElement>) => {
-        const countryName = e.target.value
-        const resultArr = data.reduce((acc, curr) => {
-          const fullText = `${curr.city}, ${curr.country}`.toLowerCase()
-          if (
-            countryName !== '' &&
-            fullText.includes(countryName.toLowerCase()) &&
-            state.adultCount + state.childrenCount <= curr.maxGuests
-          ) {
-            acc.push(curr)
-            return acc
-          }
-          return acc
-        }, [] as ResultType[])
-        setFilteredData(resultArr)
-      },
-      [dispatch, filteredData],
-    )
-
-    const handleSearchValue = useMemo(() => debounce(filterSearchResult, 500), [
-      filterSearchResult,
-    ])
-
-    const handleSubmitSearchResult = useCallback(() => {
-      const searchResult = filteredData.filter((data) => {
-        if (state.guestCount <= data.maxGuests) {
-          if (
-            state.countryName &&
-            `${data.city}, ${data.country} === ${state.countryName}`
-          ) {
-            return data
-          }
-          return data
-        }
-      })
-
-      dispatch({ type: 'setFilteredResult', payload: searchResult })
-      dispatch({ type: 'isFilterActive' })
-      handleSearchPanel()
-    }, [filteredData, state.guestCount])
-
     useEffect(() => {
       if (state.adultCount || state.childrenCount)
         dispatch({
@@ -109,7 +63,7 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
                 value={state.countryName}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   dispatch({ type: 'setName', payload: e.target.value })
-                  handleSearchValue(e)
+                  filterFN(e)
                 }}
               />
               <Collapse
@@ -123,7 +77,7 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
               >
                 <Box>
                   <List className={classes.listContainer}>
-                    {filteredData.map((result) => {
+                    {filteredData.map((result: ResultType) => {
                       return (
                         <ListItem
                           className={classes.listItem}
@@ -159,8 +113,7 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
                     shrink: true,
                     size: 'small',
                   }}
-
-                  inputProps={{ readOnly: true, }}
+                  inputProps={{ readOnly: true }}
                   name="guestCount"
                   value={
                     state.adultCount + state.childrenCount > 0
@@ -233,7 +186,7 @@ export const ExpandaedSearch: React.FC<ExpandedSearchProps> = React.memo(
               <Button
                 className={classes.searchBtn}
                 type="submit"
-                onClick={handleSubmitSearchResult}
+                onClick={filterSubmitFn}
                 startIcon={<SearchIcon />}
               >
                 Search

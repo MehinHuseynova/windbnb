@@ -21,7 +21,7 @@ export const Main = () => {
       ) : null}
       <Grid container>
         {dataToRender.map((filterResult: ResultType) => (
-          <Grid xs={12} sm={6} md={4} item>
+          <Grid xs={12} sm={6} md={4} item key={filterResult.title}>
             <Box p={1}>
               {' '}
               <CardItem cardInfo={filterResult} />
