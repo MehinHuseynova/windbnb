@@ -1,9 +1,25 @@
-User story: I can see a list of properties
-User story: I can see the property card with a name, rating, apartment type, and super host
-User story: I can open the filter drawer
-User story: I can filter properties by location and number of guests
-User story: I can see the number of filtered items
-User story: I can see pages following given designs# Getting Started with Create React App
+## Overview
+This React project is a property listing application that allows users to explore and filter properties based on various criteria. The application adheres to specific user stories to enhance the user experience.
+
+## User Stories
+View Property List:
+
+As a user, I can see a list of available properties.
+Property Card Details:
+
+As a user, I can view detailed information on a property card, including its name, rating, apartment type, and super host status.
+Filter Properties:
+
+As a user, I can open a filter drawer to customize the displayed properties.
+Location and Guests Filtering:
+
+As a user, I can filter properties based on location and the number of guests.
+Filtered Items Count:
+
+As a user, I can see the number of items that match the applied filters.
+Pagination:
+
+As a user, I can navigate through different pages of the property listings, following the provided design.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
